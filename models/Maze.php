@@ -66,6 +66,11 @@ class Maze
 		return $this->stack_path_record;
 	}
 	
+	public function getUniqueRecord()
+	{
+	    return array_unique($this->stack_path_record);
+	}
+	
 	//移動
 	public function move()
 	{
