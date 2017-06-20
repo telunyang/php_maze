@@ -1,5 +1,5 @@
 <?php
-class TestMaze
+class TestMaze extends Maze
 {
 	private $obj;
 	
