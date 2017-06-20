@@ -146,7 +146,6 @@ class Maze
 		    if( $flag == true )
 		    {
 		    	array_pop($this->queue_path_record);
-		    	echo "get back \n";
 		    }
 		    else
 		    {
@@ -155,6 +154,7 @@ class Maze
 		    			'row' => $row,
 		    			'col' => $col
 		    	];
+		    	echo "row: ".$row.", col: ".$col."\n";
 		    }
 		    
 		    //如果到達終點，則結束程式
