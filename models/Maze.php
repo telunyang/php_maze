@@ -71,10 +71,6 @@ class Maze
 	{
 		try
 		{
-		    echo "Current position: ";
-		    echo "row => ".$this->stack_path_record[count($this->stack_path_record)-1]['row'].", ";
-		    echo "col => ".$this->stack_path_record[count($this->stack_path_record)-1]['col']."\n";
-		    
 		    //隨機產生 1-4 數字，分別代表上、下、左、右
 		    $direction = rand(1, 4);
 		    
@@ -116,17 +112,13 @@ class Maze
 		    		//$this->move();
 		    	break;
 		    }
-		    
-		    echo "Move on, row => ".$this->stack_path_record[count($this->stack_path_record)-1]['row'].", col => ".$this->stack_path_record[count($this->stack_path_record)-1]['col']."\n";
-		    
+
 		    /*
 		     * 若是移動後的位置，遇到下列條件，則退回上一步
 		     * 1. 超過地圖
 		     * 2. 走過的路 (暫不考慮)
 		     * 3. 遇到障礙
 		     */
-		    
-		    $msg = "";
 		    
 		    // 1.超過地圖
 		    if( $this->stack_path_record[count($this->stack_path_record)-1]['row'] < 0 || 
@@ -135,7 +127,6 @@ class Maze
 		        $this->stack_path_record[count($this->stack_path_record)-1]['col'] >= count($this->map_data[0]) )
 		    {
 		    	$flag = true;
-		    	$msg = "超過地圖!!! ";
 		    }
 		    else
 		    {
@@ -146,7 +137,6 @@ class Maze
 // 		                $this->stack_path_record[$j]['col'] == $this->stack_path_record[count($this->stack_path_record)-1]['col'])
 // 		            {
 // 		                $flag = true;
-//                      $msg = "這裡走過囉!!! ";
 // 		                break;
 // 		            }
 // 		        }
@@ -160,7 +150,6 @@ class Maze
 		    	            $this->arr_barrier[$i]['col'] == $this->stack_path_record[count($this->stack_path_record)-1]['col'] )
 		    	        {
 		    	            $flag = true;
-		    	            $msg = "遇到障礙了!!!(不可通行) ";
 		    	            break;
 		    	        }
 		    	    }
@@ -171,18 +160,14 @@ class Maze
 		    if( $flag == true )
 		    {
 		    	$item = array_pop($this->stack_path_record);
-		    	echo $msg."離開當前位置: row => ".$item['row'].", col => ".$item['col']."\n";
 		    }
 		    
 		    //如果到達終點，則結束程式
 		    if($this->stack_path_record[count($this->stack_path_record)-1]['row'] == $this->end_row && 
 		       $this->stack_path_record[count($this->stack_path_record)-1]['col'] == $this->end_col)
 		    {
-		        echo "Arrived!!\n\n";
 		    	return true;
 		    }
-		    
-		    //sleep(1);
 		    
 		    //繼續移動
 		    return $this->move();
