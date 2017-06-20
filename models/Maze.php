@@ -147,8 +147,8 @@ class Maze
 		    //如果符合退回上一步的條件，則將目前走到的位置移除
 		    if( $flag == true )
 		    {
-		    	array_pop($this->queue_path_record);
-		    	echo "Remove queue: row: ".$row.", col: ".$col."\n";
+		    	$item = array_pop($this->queue_path_record);
+		    	echo "Remove queue: row: ".$item['row'].", col: ".$item['col']."\n";
 		    }
 		    else
 		    {
