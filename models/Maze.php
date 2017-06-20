@@ -117,7 +117,7 @@ class Maze
 		    //如果符合退回上一步的條件，則將目前走到的位置移除
 		    if( $flag == true )
 		    {
-		    	$this->queue_path_record = array_pop($this->queue_path_record);
+		    	array_pop($this->queue_path_record);
 		    }
 		    else
 		    {
