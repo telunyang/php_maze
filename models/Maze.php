@@ -37,6 +37,8 @@ class Maze
 	    		'col' => $this->begin_col
 	    ];
 	    
+	    print_r($this->queue_path_record);
+	    
 	    //設定路障範圍
 	    $this->arr_barrier = [
 	        ['row' => 1, 'col' => 1],
