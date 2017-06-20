@@ -125,7 +125,7 @@ class Maze
 		    // 2.遇到障礙
 		    for($i = 0; $i < count($this->arr_barrier); $i++)
 		    {
-		    	if( $this->arr_barrierp[$i]['row'] == $row && $this->arr_barrierp[$i]['col'] == $col )
+		    	if( $this->arr_barrier[$i]['row'] == $row && $this->arr_barrier[$i]['col'] == $col )
 		    	{
 		    		$flag = true;
 		    		break;
