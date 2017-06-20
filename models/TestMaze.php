@@ -1,5 +1,5 @@
 <?php
-require_once './models/Maze.php';
+require_once "./models/Maze.php";
 
 class TestMaze extends Maze
 {
@@ -23,7 +23,7 @@ class TestMaze extends Maze
 	{
 		try
 		{
-			if ($this->obj->move() )
+			if ( $this->obj->move() )
 			{
 				print_r($this->getQueue());
 			}
