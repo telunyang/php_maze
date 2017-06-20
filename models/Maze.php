@@ -158,10 +158,9 @@ class Maze
 		    }
 		    
 		    //如果到達終點，則結束程式
-		    if($this->queue_path_record[count($this->queue_path_record)-1]['row'] == $this->end_row &&
-		    	$this->queue_path_record[count($this->queue_path_record)-1]['col'] == $this->end_col)
+		    if($row == $this->end_row && $col == $this->end_col)
 		    {
-		    	return $this->queue_path_record;
+		    	return true;
 		    }
 		    
 		    //繼續移動
