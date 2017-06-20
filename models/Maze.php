@@ -80,35 +80,7 @@ class Maze
 		    //內部變數 row, col，暫存位置用
 		    $row = 0;
 		    $col = 0;
-		    
-		    //計算前進後的位置，count 減 1 是為了抓最後的元素
-		    switch($direction)
-		    {
-		        case 1:
-		        	$row = $this->queue_path_record[count($this->queue_path_record)-1]['row'] - 1;
-		        	$col = $this->queue_path_record[count($this->queue_path_record)-1]['col'];
-		        break;
-		        
-		        case 2:
-		        	$row = $this->queue_path_record[count($this->queue_path_record)-1]['row'] + 1;
-		        	$col = $this->queue_path_record[count($this->queue_path_record)-1]['col'];
-		        break;
-		        
-		        case 3:
-		        	$row = $this->queue_path_record[count($this->queue_path_record)-1]['row'];
-		        	$col = $this->queue_path_record[count($this->queue_path_record)-1]['col'] - 1;
-		        break;
-		        
-		        case 4:
-		        	$row = $this->queue_path_record[count($this->queue_path_record)-1]['row'];
-		        	$col = $this->queue_path_record[count($this->queue_path_record)-1]['col'] + 1;
-		        break;
-		        
-		        default:
-		            $this->move();
-		        break;
-		    }
-		    
+
 		    /*
 		     * 若是移動後的位置，遇到下列條件，進退回上一步
 		     * 1. 超過地圖
@@ -161,6 +133,34 @@ class Maze
 		    if($row == $this->end_row && $col == $this->end_col)
 		    {
 		    	return true;
+		    }
+		    
+		    //計算前進後的位置，count 減 1 是為了抓最後的元素
+		    switch($direction)
+		    {
+		    	case 1:
+		    		$row = $this->queue_path_record[count($this->queue_path_record)-1]['row'] - 1;
+		    		$col = $this->queue_path_record[count($this->queue_path_record)-1]['col'];
+		    	break;
+		    		
+		    	case 2:
+		    		$row = $this->queue_path_record[count($this->queue_path_record)-1]['row'] + 1;
+		    		$col = $this->queue_path_record[count($this->queue_path_record)-1]['col'];
+		    	break;
+		    		
+		    	case 3:
+		    		$row = $this->queue_path_record[count($this->queue_path_record)-1]['row'];
+		    		$col = $this->queue_path_record[count($this->queue_path_record)-1]['col'] - 1;
+		    	break;
+		    		
+		    	case 4:
+		    		$row = $this->queue_path_record[count($this->queue_path_record)-1]['row'];
+		    		$col = $this->queue_path_record[count($this->queue_path_record)-1]['col'] + 1;
+		    	break;
+		    		
+		    	default:
+		    		$this->move();
+		    	break;
 		    }
 		    
 		    //繼續移動
