@@ -10,9 +10,6 @@ class TestMaze extends Maze
 		try
 		{
 			$this->obj = new Maze();
-			$queue = $this->obj->move();
-			print_r($queue);
-			echo "finished";
 		}
 		catch(Exception $e)
 		{
@@ -37,3 +34,6 @@ class TestMaze extends Maze
 		
 	}
 }
+
+$obj = new TestMaze();
+$obj->test();
