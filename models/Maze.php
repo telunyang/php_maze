@@ -31,7 +31,7 @@ class Maze
 	    //記錄每一次出發的路徑
 	    $this->stack_path_record = [];
 	    
-	    //先將起點位置，放進佇列
+	    //先將起點位置，放進路徑
 	    $this->stack_path_record[] = [
 	    		'row' => $this->begin_row,
 	    		'col' => $this->begin_col
@@ -61,7 +61,7 @@ class Maze
 	}
 	
 	//回傳目前佇列內容
-	public function getQueue()
+	public function getRecord()
 	{
 		return $this->stack_path_record;
 	}
@@ -122,9 +122,11 @@ class Maze
 		    /*
 		     * 若是移動後的位置，遇到下列條件，則退回上一步
 		     * 1. 超過地圖
-		     * 2. 走過的路
+		     * 2. 走過的路 (暫不考慮)
 		     * 3. 遇到障礙
 		     */
+		    
+		    $msg = "";
 		    
 		    // 1.超過地圖
 		    if( $this->stack_path_record[count($this->stack_path_record)-1]['row'] < 0 || 
@@ -133,19 +135,21 @@ class Maze
 		        $this->stack_path_record[count($this->stack_path_record)-1]['col'] >= count($this->map_data[0]) )
 		    {
 		    	$flag = true;
+		    	$msg = "超過地圖!!! ";
 		    }
 		    else
 		    {
 		        // 2.走過的路
-		        for($j = 0; $j < (count($this->stack_path_record)-1); $j++)
-		        {
-		            if( $this->stack_path_record[$j]['row'] == $this->stack_path_record[count($this->stack_path_record)-1]['row'] && 
-		                $this->stack_path_record[$j]['col'] == $this->stack_path_record[count($this->stack_path_record)-1]['col'])
-		            {
-		                $flag = true;
-		                break;
-		            }
-		        }
+// 		        for($j = 0; $j < (count($this->stack_path_record)-1); $j++)
+// 		        {
+// 		            if( $this->stack_path_record[$j]['row'] == $this->stack_path_record[count($this->stack_path_record)-1]['row'] && 
+// 		                $this->stack_path_record[$j]['col'] == $this->stack_path_record[count($this->stack_path_record)-1]['col'])
+// 		            {
+// 		                $flag = true;
+//                      $msg = "這裡走過囉!!! ";
+// 		                break;
+// 		            }
+// 		        }
 
 		        // 3.遇到障礙
 		    	if($flag == false)
@@ -156,6 +160,7 @@ class Maze
 		    	            $this->arr_barrier[$i]['col'] == $this->stack_path_record[count($this->stack_path_record)-1]['col'] )
 		    	        {
 		    	            $flag = true;
+		    	            $msg = "遇到障礙了!!!(不可通行) ";
 		    	            break;
 		    	        }
 		    	    }
@@ -166,7 +171,7 @@ class Maze
 		    if( $flag == true )
 		    {
 		    	$item = array_pop($this->stack_path_record);
-		    	echo "Warning! Remove stack: row => ".$item['row'].", col => ".$item['col']."\n";
+		    	echo $msg."離開當前位置: row => ".$item['row'].", col => ".$item['col']."\n";
 		    }
 		    
 		    //如果到達終點，則結束程式
