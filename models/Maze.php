@@ -105,7 +105,7 @@ class Maze
 		    	break;
 		    		
 		    	default:
-		    		$this->move();
+		    		//$this->move();
 		    	break;
 		    }
 		    
