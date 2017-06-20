@@ -1,8 +1,4 @@
 <?php
-namespace models;
-
-use models\Maze;
-
 class Maze
 {
     protected $map_data; //地圖
@@ -54,8 +50,6 @@ class Maze
 	    
 	    //完成的路徑記錄初始化
 	    $this->arr_result = [];
-	    
-	    echo "super() from Maze";
 	}
 	
 	public function __destruct(){}
