@@ -2,7 +2,7 @@
 class Maze
 {
     protected $map_data; //地圖
-    protected $queue_path_record; //記錄每一次出發的路徑資料
+    protected $stack_path_record; //記錄每一次出發的路徑資料
     protected $arr_barrier; //路障，代表不可通行
     protected $arr_result; //儲存每一次走到終點的路徑資料，皆代表完成
     protected $begin_row, $begin_col, $end_row, $end_col; //開始 row,col 跟終點 row,col
@@ -29,10 +29,10 @@ class Maze
 	    ];
 	    
 	    //記錄每一次出發的路徑
-	    $this->queue_path_record = [];
+	    $this->stack_path_record = [];
 	    
 	    //先將起點位置，放進佇列
-	    $this->queue_path_record[] = [
+	    $this->stack_path_record[] = [
 	    		'row' => $this->begin_row,
 	    		'col' => $this->begin_col
 	    ];
@@ -63,7 +63,7 @@ class Maze
 	//回傳目前佇列內容
 	public function getQueue()
 	{
-		return $this->queue_path_record;
+		return $this->stack_path_record;
 	}
 	
 	//移動
@@ -71,37 +71,45 @@ class Maze
 	{
 		try
 		{
+		    echo "Current position: ";
+		    echo "row => ".$this->stack_path_record[count($this->stack_path_record)-1]['row'].", ";
+		    echo "col => ".$this->stack_path_record[count($this->stack_path_record)-1]['col']."\n";
+		    
 		    //隨機產生 1-4 數字，分別代表上、下、左、右
 		    $direction = rand(1, 4);
 		    
 		    //判斷是否需要退回上一步
 		    $flag = false;
 		    
-		    //內部變數 row, col，暫存位置用
-		    $row = 0;
-		    $col = 0;
-
-		    //計算前進後的位置，count 減 1 是為了抓最後的元素
+		    //計算前進的位置，並加以記錄。count 減 1 是為了抓最後的元素
 		    switch($direction)
 		    {
 		    	case 1:
-		    		$row = $this->queue_path_record[count($this->queue_path_record)-1]['row'] - 1;
-		    		$col = $this->queue_path_record[count($this->queue_path_record)-1]['col'];
+		    	    $this->stack_path_record[] = [
+		    	         'row' => ($this->stack_path_record[count($this->stack_path_record)-1]['row'] - 1),
+		    	         'col' => $this->stack_path_record[count($this->stack_path_record)-1]['col']
+		    	    ];
 		    	break;
 		    		
 		    	case 2:
-		    		$row = $this->queue_path_record[count($this->queue_path_record)-1]['row'] + 1;
-		    		$col = $this->queue_path_record[count($this->queue_path_record)-1]['col'];
+		    	    $this->stack_path_record[] = [
+		    	         'row' => ($this->stack_path_record[count($this->stack_path_record)-1]['row'] + 1),
+		    	         'col' => $this->stack_path_record[count($this->stack_path_record)-1]['col']
+		    	    ];
 		    	break;
 		    		
 		    	case 3:
-		    		$row = $this->queue_path_record[count($this->queue_path_record)-1]['row'];
-		    		$col = $this->queue_path_record[count($this->queue_path_record)-1]['col'] - 1;
+		    	    $this->stack_path_record[] = [
+		    	          'row' => $this->stack_path_record[count($this->stack_path_record)-1]['row'],
+		    	          'col' => ($this->stack_path_record[count($this->stack_path_record)-1]['col'] - 1)
+		    	    ];
 		    	break;
 		    		
 		    	case 4:
-		    		$row = $this->queue_path_record[count($this->queue_path_record)-1]['row'];
-		    		$col = $this->queue_path_record[count($this->queue_path_record)-1]['col'] + 1;
+		    	    $this->stack_path_record[] = [
+		    	         'row' => $this->stack_path_record[count($this->stack_path_record)-1]['row'],
+		    	         'col' => ($this->stack_path_record[count($this->stack_path_record)-1]['col'] + 1)
+		    	    ];
 		    	break;
 		    		
 		    	default:
@@ -109,64 +117,67 @@ class Maze
 		    	break;
 		    }
 		    
+		    echo "Move on, row => ".$this->stack_path_record[count($this->stack_path_record)-1]['row'].", col => ".$this->stack_path_record[count($this->stack_path_record)-1]['col']."\n";
+		    
 		    /*
-		     * 若是移動後的位置，遇到下列條件，進退回上一步
+		     * 若是移動後的位置，遇到下列條件，則退回上一步
 		     * 1. 超過地圖
-		     * 2. 遇到障礙
-		     * 3. 走過的路
+		     * 2. 走過的路
+		     * 3. 遇到障礙
 		     */
 		    
 		    // 1.超過地圖
-		    if( $row < 0 || $col < 0 || $row >= count($this->map_data) || $col >= count($this->map_data[0]) )
+		    if( $this->stack_path_record[count($this->stack_path_record)-1]['row'] < 0 || 
+		        $this->stack_path_record[count($this->stack_path_record)-1]['col'] < 0 || 
+		        $this->stack_path_record[count($this->stack_path_record)-1]['row'] >= count($this->map_data) || 
+		        $this->stack_path_record[count($this->stack_path_record)-1]['col'] >= count($this->map_data[0]) )
 		    {
 		    	$flag = true;
 		    }
 		    else
 		    {
-		    	// 2.遇到障礙
-		    	for($i = 0; $i < count($this->arr_barrier); $i++)
+		        // 2.走過的路
+		        for($j = 0; $j < (count($this->stack_path_record)-1); $j++)
+		        {
+		            if( $this->stack_path_record[$j]['row'] == $this->stack_path_record[count($this->stack_path_record)-1]['row'] && 
+		                $this->stack_path_record[$j]['col'] == $this->stack_path_record[count($this->stack_path_record)-1]['col'])
+		            {
+		                $flag = true;
+		                break;
+		            }
+		        }
+
+		        // 3.遇到障礙
+		    	if($flag == false)
 		    	{
-		    		if( $this->arr_barrier[$i]['row'] == $row && $this->arr_barrier[$i]['col'] == $col )
-		    		{
-		    			$flag = true;
-		    			break;
-		    		}
-		    	}
-		    	
-		    	// 3.走過的路
-		    	for($j = 0; $j < count($this->queue_path_record); $j++)
-		    	{
-		    		if( $this->queue_path_record[$j]['row'] == $row && $this->queue_path_record[$j]['col'] == $col)
-		    		{
-		    			$flag = true;
-		    			break;
-		    		}
+		    	    for($i = 0; $i < count($this->arr_barrier); $i++)
+		    	    {
+		    	        if( $this->arr_barrier[$i]['row'] == $this->stack_path_record[count($this->stack_path_record)-1]['row'] && 
+		    	            $this->arr_barrier[$i]['col'] == $this->stack_path_record[count($this->stack_path_record)-1]['col'] )
+		    	        {
+		    	            $flag = true;
+		    	            break;
+		    	        }
+		    	    }
 		    	}
 		    }
 
 		    //如果符合退回上一步的條件，則將目前走到的位置移除
 		    if( $flag == true )
 		    {
-		    	$item = array_pop($this->queue_path_record);
-		    	echo "Remove queue: row: ".$item['row'].", col: ".$item['col']."\n";
-		    }
-		    else
-		    {
-		    	//反之則加入佇列
-		    	$this->queue_path_record[] = [
-		    			'row' => $row,
-		    			'col' => $col
-		    	];
-		    	echo "Add queue: row: ".$row.", col: ".$col."\n";
+		    	$item = array_pop($this->stack_path_record);
+		    	echo "Warning! Remove stack: row => ".$item['row'].", col => ".$item['col']."\n";
 		    }
 		    
 		    //如果到達終點，則結束程式
-		    if($row == $this->end_row && $col == $this->end_col)
+		    if($this->stack_path_record[count($this->stack_path_record)-1]['row'] == $this->end_row && 
+		       $this->stack_path_record[count($this->stack_path_record)-1]['col'] == $this->end_col)
 		    {
+		        echo "Arrived!!\n\n";
 		    	return true;
 		    }
 		    
-		    sleep(1);
+		    //sleep(1);
 		    
 		    //繼續移動
 		    return $this->move();
