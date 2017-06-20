@@ -28,7 +28,6 @@ class TestMaze extends Maze
 				$arr = $this->obj->getRecord();
 				echo "Original count: ".count($arr)."\n";
 				print_r($this->obj->getRecord());
-				//echo "Unique   count: ".count(array_unique($arr))."\n";
 			}
 		}
 		catch(Exception $e)
