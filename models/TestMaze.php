@@ -37,4 +37,4 @@ class TestMaze extends Maze
 }
 
 $obj = new TestMaze();
-//$obj->test();
+$obj->test();
