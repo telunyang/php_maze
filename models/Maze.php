@@ -37,8 +37,6 @@ class Maze
 	    		'col' => $this->begin_col
 	    ];
 	    
-	    print_r($this->queue_path_record);
-	    
 	    //設定路障範圍
 	    $this->arr_barrier = [
 	        ['row' => 1, 'col' => 1],
@@ -123,27 +121,29 @@ class Maze
 		    {
 		    	$flag = true;
 		    }
-		    
-		    // 2.遇到障礙
-		    for($i = 0; $i < count($this->arr_barrier); $i++)
+		    else
 		    {
-		    	if( $this->arr_barrier[$i]['row'] == $row && $this->arr_barrier[$i]['col'] == $col )
+		    	// 2.遇到障礙
+		    	for($i = 0; $i < count($this->arr_barrier); $i++)
 		    	{
-		    		$flag = true;
-		    		break;
+		    		if( $this->arr_barrier[$i]['row'] == $row && $this->arr_barrier[$i]['col'] == $col )
+		    		{
+		    			$flag = true;
+		    			break;
+		    		}
+		    	}
+		    	
+		    	// 3.走過的路
+		    	for($j = 0; $j < count($this->queue_path_record); $j++)
+		    	{
+		    		if( $this->queue_path_record[$j]['row'] == $row && $this->queue_path_record[$j]['col'] == $col)
+		    		{
+		    			$flag = true;
+		    			break;
+		    		}
 		    	}
 		    }
-		    
-		    // 3.走過的路
-		    for($j = 0; $j < count($this->queue_path_record); $j++)
-		    {
-		    	if( $this->queue_path_record[$j]['row'] == $row && $this->queue_path_record[$j]['col'] == $col)
-		    	{
-		    		$flag = true;
-		    		break;
-		    	}
-		    }
-		    
+
 		    //如果符合退回上一步的條件，則將目前走到的位置移除
 		    if( $flag == true )
 		    {
