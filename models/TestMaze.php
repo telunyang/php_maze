@@ -1,9 +1,4 @@
 <?php
-namespace models;
-
-use models\Maze;
-use models\TestMaze;
-
 class TestMaze
 {
 	private $obj;
