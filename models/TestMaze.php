@@ -1,4 +1,6 @@
 <?php
+require_once './models/Maze.php';
+
 class TestMaze extends Maze
 {
 	private $obj;
