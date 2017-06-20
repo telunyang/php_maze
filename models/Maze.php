@@ -117,7 +117,7 @@ class Maze
 		     */
 		    
 		    // 1.超過地圖
-		    if( ($row < 0 && $col < 0) || ($row >= count($this->map_data) && $col >= count($this->map_data[0]) ) )
+		    if( $row < 0 || $col < 0 || $row >= count($this->map_data) || $col >= count($this->map_data[0]) )
 		    {
 		    	$flag = true;
 		    }
