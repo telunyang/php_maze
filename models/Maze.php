@@ -148,6 +148,7 @@ class Maze
 		    if( $flag == true )
 		    {
 		    	array_pop($this->queue_path_record);
+		    	echo "Remove queue: row: ".$row.", col: ".$col."\n";
 		    }
 		    else
 		    {
@@ -156,7 +157,7 @@ class Maze
 		    			'row' => $row,
 		    			'col' => $col
 		    	];
-		    	echo "row: ".$row.", col: ".$col."\n";
+		    	echo "Add queue: row: ".$row.", col: ".$col."\n";
 		    }
 		    
 		    //如果到達終點，則結束程式
@@ -164,7 +165,9 @@ class Maze
 		    {
 		    	return true;
 		    }
-
+		    
+		    sleep(1);
+		    
 		    //繼續移動
 		    return $this->move();
 		}
