@@ -25,7 +25,7 @@ class TestMaze extends Maze
 		{
 			if ( $this->obj->move() )
 			{
-				print_r($this->getRecord());
+				print_r($this->obj->getRecord());
 			}
 		}
 		catch(Exception $e)
