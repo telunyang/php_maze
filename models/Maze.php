@@ -146,6 +146,7 @@ class Maze
 		    if( $flag == true )
 		    {
 		    	array_pop($this->queue_path_record);
+		    	echo "get back \n";
 		    }
 		    else
 		    {
