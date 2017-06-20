@@ -166,23 +166,7 @@ class Maze
 		    if($this->stack_path_record[count($this->stack_path_record)-1]['row'] == $this->end_row && 
 		       $this->stack_path_record[count($this->stack_path_record)-1]['col'] == $this->end_col)
 		    {
-		        if( count($this->stack_path_record) <= 17 )
-		        {
-		            return true;
-		        }
-		        else
-		        {
-		            exec("sudo sysctl -w vm.drop_caches=3");
-		            
-		            //記錄每一次出發的路徑
-		            $this->stack_path_record = [];
-		            
-		            //先將起點位置，放進路徑
-		            $this->stack_path_record[] = [
-		                'row' => $this->begin_row,
-		                'col' => $this->begin_col
-		            ];
-		        }
+		        return true;
 		    }
 		    
 		    //繼續移動
