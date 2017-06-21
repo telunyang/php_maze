@@ -1,4 +1,6 @@
 <?php
+//ini_set('memory_limit', '8192M');
+
 require_once "./models/Maze.php";
 
 class TestMaze extends Maze
