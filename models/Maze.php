@@ -41,6 +41,12 @@ class Maze
 	    //因為走過、離圖或其它因素，在退一步後，被記錄下來的路徑，不用再走冤枉路
 	    $this->arr_remove = [];
 	    
+	    //把起點列入記錄下來的路徑
+	    $this->arr_remove[] = [
+	    		'row' => $this->begin_row,
+	    		'col' => $this->begin_col
+	    ];
+	    
 	    //設定路障範圍
 	    $this->arr_barrier = [
 	        ['row' => 1, 'col' => 1],
@@ -208,7 +214,7 @@ class Maze
 		    if( $flag == true )
 		    {
 		    	$item = array_pop($this->stack_path_record);
-		    	//$this->arr_remove[] = $item;
+		    	$this->arr_remove[] = $item;
 		    }
 		    
 		    //如果到達終點，則結束程式
