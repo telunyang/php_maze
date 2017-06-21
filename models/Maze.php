@@ -80,7 +80,7 @@ class Maze
 	    return $this->map_data;
 	}
 	
-	//回傳目前佇列內容
+	//回傳目前路徑內容
 	public function getRecord()
 	{
 		return $this->stack_path_record;
