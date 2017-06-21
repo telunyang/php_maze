@@ -58,6 +58,22 @@ class Maze
 	
 	public function __destruct(){}
 	
+	//重新出發
+	private function resetPath()
+	{
+		//記錄每一次出發的路徑
+		$this->stack_path_record = [];
+		
+		//先將起點位置，放進路徑
+		$this->stack_path_record[] = [
+				'row' => $this->begin_row,
+				'col' => $this->begin_col
+		];
+		
+		//因為走過、離圖或其它因素，在退一步後，被記錄下來的路徑，不用再走冤枉路
+		$this->arr_remove = [];
+	}
+	
 	//回傳地圖
 	public function getMap()
 	{
@@ -75,6 +91,14 @@ class Maze
 	{
 		try
 		{
+			if( count($this->stack_path_record) >= 20 )
+			{
+				shell_exec('sh -c "echo 3 > /proc/sys/vm/drop_caches"');
+				
+				//重新出發
+				$this->resetPath();
+			}
+			
 		    //隨機產生 1-4 數字，分別代表上、下、左、右
 		    $direction = rand(1, 4);
 		    
@@ -190,7 +214,7 @@ class Maze
 		    if($this->stack_path_record[count($this->stack_path_record)-1]['row'] == $this->end_row && 
 		       $this->stack_path_record[count($this->stack_path_record)-1]['col'] == $this->end_col)
 		    {
-		        return true;
+		    	return true;
 		    }
 		    
 		    //繼續移動
