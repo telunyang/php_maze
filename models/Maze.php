@@ -190,7 +190,7 @@ class Maze
 		    	}
 
 		        // 3.遇到障礙
-		    	if($flag == true)
+		    	if($flag == false)
 		        {
 		    	    for($i = 0; $i < count($this->arr_barrier); $i++)
 		    	    {
