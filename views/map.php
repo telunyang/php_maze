@@ -49,7 +49,10 @@ for($r = 0; $r < count($map_data); $r++)
     	}
     	?>
     	>
-    	<?php echo $r.",".$c." =>".$map_data[$r][$c]; ?>
+    	<?php 
+    		//echo $r.",".$c." =>";
+    		echo $map_data[$r][$c]; 
+    	?>
     	</td>
     <?php
     }
