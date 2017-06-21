@@ -18,6 +18,8 @@ $map_data = $obj->getMap();
 //取得本次抵達終點的路徑記錄
 $records = $obj->getRecord();
 
+print_r($records);
+
 for($r = 0; $r < count($map_data); $r++)
 {
 ?>
@@ -38,9 +40,7 @@ for($r = 0; $r < count($map_data); $r++)
     	}
     	?>
     	>
-    	<?php 
-    		echo $map_data[$r][$c]; 
-    	?>
+    	<?php echo $map_data[$r][$c]; ?>
     	</td>
     <?php
     }
