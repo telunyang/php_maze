@@ -1,5 +1,5 @@
 <?php 
-set_time_limit(10);
+set_time_limit(5);
 ?>
 <style>
 <!--
