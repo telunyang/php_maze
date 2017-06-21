@@ -1,3 +1,6 @@
+<?php 
+set_time_limit(10);
+?>
 <style>
 <!--
 table td{
