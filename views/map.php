@@ -15,10 +15,13 @@ td.path{
 //取得地圖
 $map_data = $obj->getMap();
 
-//取得本次抵達終點的路徑記錄
-$records = $obj->getRecord();
+if ( $obj->move() )
+{
+	$records = $obj->getRecord();
+	echo "Original count: ".count($records)."\n";
+}
 
-print_r($records);
+//print_r($records);
 
 for($r = 0; $r < count($map_data); $r++)
 {
@@ -31,12 +34,15 @@ for($r = 0; $r < count($map_data); $r++)
     ?>
     	<td
     	<?php 
-    	for($i = 0; $i < count($records); $i++)
+    	if( isset($records) && count($records) > 0 )
     	{
-    		if($records[$i]['row'] == $r && $records[$i]['col'] == $c)
-    		{
-    			echo 'class="path"';
-    		}
+	    	for($i = 0; $i < count($records); $i++)
+	    	{
+	    		if($records[$i]['row'] == $r && $records[$i]['col'] == $c)
+	    		{
+	    			echo 'class="path"';
+	    		}
+	    	}
     	}
     	?>
     	>
@@ -51,3 +57,10 @@ for($r = 0; $r < count($map_data); $r++)
 }
 ?>
 </table>
+
+<input type="button" id="btn" value="取得路徑" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+</script>
