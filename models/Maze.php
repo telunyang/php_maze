@@ -97,12 +97,6 @@ class Maze
 	{
 		try
 		{
-// 			if( count($this->stack_path_record) >= 20 )
-// 			{
-// 				//重新出發
-// 				$this->resetPath();
-// 			}
-			
 		    //隨機產生 1-4 數字，分別代表上、下、左、右
 		    $direction = rand(1, 4);
 		    
