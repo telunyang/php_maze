@@ -93,8 +93,6 @@ class Maze
 		{
 			if( count($this->stack_path_record) >= 20 )
 			{
-				shell_exec('sh -c "echo 3 > /proc/sys/vm/drop_caches"');
-				
 				//重新出發
 				$this->resetPath();
 			}
@@ -192,15 +190,18 @@ class Maze
 		    	}
 
 		        // 3.遇到障礙
-	    	    for($i = 0; $i < count($this->arr_barrier); $i++)
-	    	    {
-	    	        if( $this->arr_barrier[$i]['row'] == $this->stack_path_record[count($this->stack_path_record)-1]['row'] && 
-	    	            $this->arr_barrier[$i]['col'] == $this->stack_path_record[count($this->stack_path_record)-1]['col'] )
-	    	        {
-	    	            $flag = true;
-	    	            break;
-	    	        }
-	    	    }
+		    	if($flag == true)
+		        {
+		    	    for($i = 0; $i < count($this->arr_barrier); $i++)
+		    	    {
+		    	        if( $this->arr_barrier[$i]['row'] == $this->stack_path_record[count($this->stack_path_record)-1]['row'] && 
+		    	            $this->arr_barrier[$i]['col'] == $this->stack_path_record[count($this->stack_path_record)-1]['col'] )
+		    	        {
+		    	            $flag = true;
+		    	            break;
+		    	        }
+		    	    }
+		        }
 		    }
 
 		    //如果符合退回上一步的條件，則將目前走到的位置移除，同時將移除位置加以記錄
