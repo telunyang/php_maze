@@ -5,6 +5,7 @@
 1. 透過 DFS (Depth-First-Search) 來走訪地圖。
 2. 會自行閃避不可通行的地方，也不會超出地圖，直到抵達終點。
 3. 目前沒有最佳解。
+
 ![Result 01](https://github.com/telunyang/PHP-Maze/blob/master/images/01.png)
 ![Result 02](https://github.com/telunyang/PHP-Maze/blob/master/images/02.png)
 ![Result 03](https://github.com/telunyang/PHP-Maze/blob/master/images/03.png)
