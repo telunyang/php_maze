@@ -63,10 +63,3 @@ for($r = 0; $r < count($map_data); $r++)
 }
 ?>
 </table>
-
-<input type="button" id="btn" value="取得路徑" />
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-
-</script>
