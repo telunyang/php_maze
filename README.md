@@ -30,5 +30,3 @@
 ![Result 07](https://github.com/telunyang/PHP-Maze/blob/master/images/07.png)
 ![Result 08](https://github.com/telunyang/PHP-Maze/blob/master/images/08.png)
 ![Result 09](https://github.com/telunyang/PHP-Maze/blob/master/images/09.png)
-
-## Version 1.1 (開發中)
